@@ -466,24 +466,24 @@ def _RestartDevice(device,
   if 'x86' == proto.emulator_architecture:
     if not _IsKvmPresent():
       print('')
-      print('=' * 80)
+      print(('=' * 80))
       print ('= By activating KVM on your local host you can increase the '
              'speed of the emulator.      =')
-      print('=' * 80)
+      print(('=' * 80))
     elif not proto.with_kvm:
       print('')
-      print('=' * 80)
+      print(('=' * 80))
       print ('= Please add --no to your bazel command line, to create '
              'snapshot images   =')
       print ('= local with KVM support. This will increase the speed of the '
              'emulator.        =')
-      print('=' * 80)
+      print(('=' * 80))
   else:
     print('')
-    print('=' * 80)
+    print(('=' * 80))
     print ('= By using x86 with KVM on your local host you can increase the '
            'speed of the emulator.')
-    print('=' * 80)
+    print(('=' * 80))
 
   proto.system_image_dir = system_images_dir
   sysimg = (
@@ -805,7 +805,7 @@ def _RemoveBootTimeApks(boot_apks=None, other_apks=None):
   boot_apks = _HashFiles(boot_apks)
   if boot_apks:
     other_apks = _HashFiles(other_apks)
-    for file_hash, _ in boot_apks.items():
+    for file_hash, _ in list(boot_apks.items()):
       if file_hash in other_apks:
         del other_apks[file_hash]
     return list(other_apks.values())
@@ -1062,7 +1062,7 @@ def _IsKvmPresent():
   if not kernel_module:
     print('KVM Kernel module not readable.')
   if not device_node:
-    print('%s: not readable or writable by current user' % kvm_device)
+    print(('%s: not readable or writable by current user' % kvm_device))
 
   return device_node and kernel_module
 

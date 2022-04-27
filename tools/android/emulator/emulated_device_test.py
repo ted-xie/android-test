@@ -90,7 +90,7 @@ class EmulatedDeviceTest(mox.MoxTestBase):
         device_serial='localhost:1234')
     mock_device._metadata_pb = emulator_meta_data_pb2.EmulatorMetaDataPb()
 
-    self.assertEquals('-s localhost:1234 shell echo hello\n',
+    self.assertEqual('-s localhost:1234 shell echo hello\n',
                       mock_device.ExecOnDevice(['echo', 'hello']))
 
   def testExecOnEmulator_NormalBoot(self):
@@ -105,7 +105,7 @@ class EmulatedDeviceTest(mox.MoxTestBase):
         device_serial='localhost:1234')
     mock_device._metadata_pb = emulator_meta_data_pb2.EmulatorMetaDataPb()
 
-    self.assertEquals('-s localhost:1234 shell echo hello\n',
+    self.assertEqual('-s localhost:1234 shell echo hello\n',
                       mock_device.ExecOnDevice(['echo', 'hello']))
 
   def testEmulatorPing_noConnect(self):
@@ -166,7 +166,7 @@ class EmulatedDeviceTest(mox.MoxTestBase):
   def testDetermineArchitecture_FromSourceProperties(self):
     random_properties = {'systemimage.abi': 'foobarbaz'}
     device = emulated_device.EmulatedDevice()
-    self.assertEquals('foobarbaz',
+    self.assertEqual('foobarbaz',
                       device._DetermineArchitecture(random_properties),
                       'systemimage.abi should be the source of arch.')
 
@@ -175,15 +175,15 @@ class EmulatedDeviceTest(mox.MoxTestBase):
     device = emulated_device.EmulatedDevice()
 
     props = {'systemimage.abi': 'armeabi'}
-    self.assertEquals([],
+    self.assertEqual([],
                       device._DetermineQemuArgs(props, False))
-    self.assertEquals([],
+    self.assertEqual([],
                       device._DetermineQemuArgs(props, True))
 
     props = {'systemimage.abi': 'x86'}
-    self.assertEquals(['-disable-kvm'],
+    self.assertEqual(['-disable-kvm'],
                       device._DetermineQemuArgs(props, False))
-    self.assertEquals(['-enable-kvm', '-append', 'nopat'],
+    self.assertEqual(['-enable-kvm', '-append', 'nopat'],
                       device._DetermineQemuArgs(props, True))
 
   def testAdbEnv_NoPort(self):
@@ -192,7 +192,7 @@ class EmulatedDeviceTest(mox.MoxTestBase):
     env = device._AdbEnv()
     self.assertIsNotNone(device.adb_server_port, 'Adb Server Port should '
                          'auto assign')
-    self.assertEquals(
+    self.assertEqual(
         str(device.adb_server_port), env['ANDROID_ADB_SERVER_PORT'],
         'Adb port mismatches between class and environment.')
 
@@ -200,7 +200,7 @@ class EmulatedDeviceTest(mox.MoxTestBase):
     device = emulated_device.EmulatedDevice(
         adb_server_port=1234,
         android_platform=fake_android_platform_util.BuildAndroidPlatform())
-    self.assertEquals(str(1234), device._AdbEnv()['ANDROID_ADB_SERVER_PORT'])
+    self.assertEqual(str(1234), device._AdbEnv()['ANDROID_ADB_SERVER_PORT'])
 
   def testStartEmulator_BadSystemDir(self):
     device = emulated_device.EmulatedDevice()
@@ -271,15 +271,15 @@ class EmulatedDeviceTest(mox.MoxTestBase):
     for prop in device._metadata_pb.avd_config_property:
       if prop.name == 'hw.mainKeys':
         found.add(prop.name)
-        self.assertEquals('no', prop.value)
+        self.assertEqual('no', prop.value)
       elif prop.name == 'hw.keyboard.lid':
         found.add(prop.name)
-        self.assertEquals('no', prop.value)
+        self.assertEqual('no', prop.value)
       elif prop.name == 'hw.keyboard':
         found.add(prop.name)
-        self.assertEquals('yes', prop.value)
+        self.assertEqual('yes', prop.value)
 
-    self.assertEquals(3, len(found))
+    self.assertEqual(3, len(found))
 
   def testConfigureEmulator_customSdCard(self):
     device = emulated_device.EmulatedDevice()
@@ -291,7 +291,7 @@ class EmulatedDeviceTest(mox.MoxTestBase):
                      default_properties={'sdcard_size_mb': '2048'},
                      source_properties={'systemimage.abi': 'x86',
                                         'androidversion.apilevel': '15'})
-    self.assertEquals(2048, device._metadata_pb.sdcard_size_mb)
+    self.assertEqual(2048, device._metadata_pb.sdcard_size_mb)
 
   def testConfigureEmulator_defaultSdCard(self):
     device = emulated_device.EmulatedDevice()
@@ -302,7 +302,7 @@ class EmulatedDeviceTest(mox.MoxTestBase):
                      36,
                      source_properties={'systemimage.abi': 'x86',
                                         'androidversion.apilevel': '15'})
-    self.assertEquals(256, device._metadata_pb.sdcard_size_mb)
+    self.assertEqual(256, device._metadata_pb.sdcard_size_mb)
 
     device = emulated_device.EmulatedDevice()
     device.Configure(fake_android_platform_util.GetSystemImageDir(),
@@ -313,7 +313,7 @@ class EmulatedDeviceTest(mox.MoxTestBase):
                      default_properties={'some_other_key': 'foo'},
                      source_properties={'systemimage.abi': 'x86',
                                         'androidversion.apilevel': '10'})
-    self.assertEquals(256, device._metadata_pb.sdcard_size_mb)
+    self.assertEqual(256, device._metadata_pb.sdcard_size_mb)
 
   def testBroadcastDeviceReady_extras(self):
     device = emulated_device.EmulatedDevice(
@@ -338,7 +338,7 @@ class EmulatedDeviceTest(mox.MoxTestBase):
     extras['hello'] = 'world'
     extras['something'] = 'new'
     device.BroadcastDeviceReady(extras)
-    self.assertEquals(
+    self.assertEqual(
         [
             'am', 'broadcast', '-a',
             'ACTION_MOBILE_NINJAS_START', '-f', '268435488',
@@ -356,7 +356,7 @@ class EmulatedDeviceTest(mox.MoxTestBase):
     device.ExecOnDevice = StubTestAdbCall
     device.BroadcastDeviceReady()
     # do not broadcast!
-    self.assertEquals([], called_with)
+    self.assertEqual([], called_with)
 
   def testBroadcastDeviceReady_booleanExtras(self):
     device = emulated_device.EmulatedDevice(
@@ -380,7 +380,7 @@ class EmulatedDeviceTest(mox.MoxTestBase):
     extras = collections.OrderedDict()
     extras['boolkey'] = True
     device.BroadcastDeviceReady(extras)
-    self.assertEquals(
+    self.assertEqual(
         [
             'am', 'broadcast', '-a',
             'ACTION_MOBILE_NINJAS_START', '-f', '268435488',
@@ -412,7 +412,7 @@ class EmulatedDeviceTest(mox.MoxTestBase):
     extras['something'] = 'new'
     action = 'com.google.android.apps.common.testing.services.TEST_ACTION'
     device.BroadcastDeviceReady(extras, action)
-    self.assertEquals(
+    self.assertEqual(
         [
             'am', 'broadcast', '-a',
             action, '-f', '268435488',
@@ -422,17 +422,17 @@ class EmulatedDeviceTest(mox.MoxTestBase):
   def testFindProcsToKill(self):
     device = emulated_device.EmulatedDevice()
     procs_to_kill = device._FindProcsToKill(ANR_LOGS)
-    self.assertEquals(set(procs_to_kill), set(['2712', '2452']))
+    self.assertEqual(set(procs_to_kill), set(['2712', '2452']))
 
   def testMapToSupportedDensity(self):
     device = emulated_device.EmulatedDevice()
 
-    self.assertEquals(120, device._MapToSupportedDensity(1))
-    self.assertEquals(213, device._MapToSupportedDensity(213))
-    self.assertEquals(240, device._MapToSupportedDensity(214))
-    self.assertEquals(280, device._MapToSupportedDensity(270))
-    self.assertEquals(360, device._MapToSupportedDensity(370))
-    self.assertEquals(640, device._MapToSupportedDensity(1000))
+    self.assertEqual(120, device._MapToSupportedDensity(1))
+    self.assertEqual(213, device._MapToSupportedDensity(213))
+    self.assertEqual(240, device._MapToSupportedDensity(214))
+    self.assertEqual(280, device._MapToSupportedDensity(270))
+    self.assertEqual(360, device._MapToSupportedDensity(370))
+    self.assertEqual(640, device._MapToSupportedDensity(1000))
 
   def testConfigureEmulator_useAdbdPipe(self):
     device = emulated_device.EmulatedDevice()
@@ -443,8 +443,8 @@ class EmulatedDeviceTest(mox.MoxTestBase):
                      36,
                      source_properties={'systemimage.abi': 'x86',
                                         'androidversion.apilevel': '15'})
-    self.assertEquals(False, device._metadata_pb.with_adbd_pipe)
-    self.assertEquals(False, device._metadata_pb.with_patched_adbd)
+    self.assertEqual(False, device._metadata_pb.with_adbd_pipe)
+    self.assertEqual(False, device._metadata_pb.with_patched_adbd)
 
     device = emulated_device.EmulatedDevice()
     device.Configure(fake_android_platform_util.GetSystemImageDir(),
@@ -454,8 +454,8 @@ class EmulatedDeviceTest(mox.MoxTestBase):
                      36,
                      source_properties={'systemimage.abi': 'x86',
                                         'androidversion.apilevel': '10'})
-    self.assertEquals(False, device._metadata_pb.with_adbd_pipe)
-    self.assertEquals(False, device._metadata_pb.with_patched_adbd)
+    self.assertEqual(False, device._metadata_pb.with_adbd_pipe)
+    self.assertEqual(False, device._metadata_pb.with_patched_adbd)
 
     device = emulated_device.EmulatedDevice()
     device.Configure(fake_android_platform_util.GetSystemImageDir(),
@@ -465,8 +465,8 @@ class EmulatedDeviceTest(mox.MoxTestBase):
                      36,
                      source_properties={'systemimage.abi': 'armeabi',
                                         'androidversion.apilevel': '10'})
-    self.assertEquals(False, device._metadata_pb.with_adbd_pipe)
-    self.assertEquals(False, device._metadata_pb.with_patched_adbd)
+    self.assertEqual(False, device._metadata_pb.with_adbd_pipe)
+    self.assertEqual(False, device._metadata_pb.with_patched_adbd)
 
     device = emulated_device.EmulatedDevice()
     device.Configure(fake_android_platform_util.GetSystemImageDir(),
@@ -476,8 +476,8 @@ class EmulatedDeviceTest(mox.MoxTestBase):
                      36,
                      source_properties={'systemimage.abi': 'armeabi-v7a',
                                         'androidversion.apilevel': '15'})
-    self.assertEquals(False, device._metadata_pb.with_adbd_pipe)
-    self.assertEquals(False, device._metadata_pb.with_patched_adbd)
+    self.assertEqual(False, device._metadata_pb.with_adbd_pipe)
+    self.assertEqual(False, device._metadata_pb.with_patched_adbd)
 
   def testSanityTestOpenGL_bogusDriver(self):
     device = emulated_device.EmulatedDevice()
@@ -561,18 +561,18 @@ class EmulatedDeviceTest(mox.MoxTestBase):
   def assertSideLoading(self, api_level, table_name, called_with,):
     api_level = int(api_level)
     if api_level > 16:
-      self.assertEquals([
+      self.assertEqual([
           'settings put %s install_non_market_apps 0' % table_name,
           'pm',
           'disable com.android.providers.settings'], called_with)
     elif api_level == 16:
-      self.assertEquals([
+      self.assertEqual([
           'content insert --uri content://settings/%s --bind '
           'name:s:install_non_market_apps --bind value:s:0' %
           table_name, 'pm',
           'disable com.android.providers.settings'], called_with)
     else:
-      self.assertEquals(
+      self.assertEqual(
           ['sqlite3',
            '/data/data/com.android.providers.settings/databases/settings.db',
            '"INSERT OR REPLACE INTO secure (name, value) VALUES '

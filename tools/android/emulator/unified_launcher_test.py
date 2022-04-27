@@ -18,7 +18,7 @@
 
 import collections
 import os
-import StringIO
+import io
 import tempfile
 
 
@@ -91,7 +91,7 @@ class UnifiedLauncherTest(mox.MoxTestBase):
     written_proto = emulator_meta_data_pb2.EmulatorMetaDataPb()
     written_proto.ParseFromString(written_file.read())
     written_file.close()
-    self.assertEquals(written_proto, self._test_proto)
+    self.assertEqual(written_proto, self._test_proto)
 
   def testRun_badInstall(self):
     self.mox.StubOutClassWithMocks(emulated_device, 'EmulatedDevice')
@@ -454,22 +454,22 @@ class UnifiedLauncherTest(mox.MoxTestBase):
                            payload='the test')
     app_apk = _CreateFile(os.path.join(base_dir, 'app_apk.apk'),
                           payload='the app')
-    self.assertEquals(
+    self.assertEqual(
         [app_apk, test_apk],
         unified_launcher._RemoveBootTimeApks(
             [foo_apk],
             [same_foo,
              app_apk,
              test_apk]))
-    self.assertEquals(
+    self.assertEqual(
         [app_apk, test_apk],
         unified_launcher._RemoveBootTimeApks(
             [],
             [app_apk, test_apk]))
-    self.assertEquals(
+    self.assertEqual(
         [],
         unified_launcher._RemoveBootTimeApks([], []))
-    self.assertEquals(
+    self.assertEqual(
         [],
         unified_launcher._RemoveBootTimeApks([foo_apk], None))
 
@@ -484,12 +484,12 @@ class UnifiedLauncherTest(mox.MoxTestBase):
         '/android/system-images/google_21/x86/system.img.tar.gz',
         '/android/system-images/google_21/x86/cache.img.tar.gz',
         '/android/system-images/google_21/x86/ramdisk.img']
-    self.assertEquals(
+    self.assertEqual(
         set(['/android_test_support/third_party/java/android_apps/gcore/GmsCore.apk',
              '/android_test_support/com/google/android/apps/common/testing/testapp/'
              'testapp.apk']),
         set(unified_launcher._ExtractBootTimeApks(overloaded)))
-    self.assertEquals(
+    self.assertEqual(
         set(['/android/system-images/google_21/x86/kernel-qemu',
              '/android/system-images/google_21/x86/userdata.img.tar.gz',
              '/android/system-images/google_21/x86/system.img.tar.gz',
@@ -633,12 +633,12 @@ class UnifiedLauncherTest(mox.MoxTestBase):
         mini_boot=False)
 
   def testConvertToDict(self):
-    self.assertEquals(
+    self.assertEqual(
         {'hello': 'world'},
         unified_launcher._ConvertToDict(['hello=world']))
 
   def testConvertToDict_nestedEquals(self):
-    self.assertEquals(
+    self.assertEqual(
         {'hello': 'world=5'},
         unified_launcher._ConvertToDict(['hello=world=5']))
 
@@ -646,16 +646,16 @@ class UnifiedLauncherTest(mox.MoxTestBase):
     with tempfile.NamedTemporaryFile() as proto_file:
       proto_file.write(self._test_proto.SerializeToString())
       proto_file.flush()
-      output = StringIO.StringIO()
+      output = io.StringIO()
       unified_launcher._PrintInfo(proto_file.name, 'raw', out=output)
-      self.assertEquals(output.getvalue(),
+      self.assertEqual(output.getvalue(),
                         self._test_proto.SerializeToString())
 
   def testInfo_text(self):
     with tempfile.NamedTemporaryFile() as proto_file:
       proto_file.write(self._test_proto.SerializeToString())
       proto_file.flush()
-      output = StringIO.StringIO()
+      output = io.StringIO()
       unified_launcher._PrintInfo(proto_file.name, 'text', out=output)
       self.assertTrue('skin: "800x900"' in output.getvalue(), output.getvalue())
 

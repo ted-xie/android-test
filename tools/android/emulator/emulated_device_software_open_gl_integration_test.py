@@ -83,7 +83,7 @@ class EmulatedDeviceSoftwareOpenGlIntegrationTest(googletest.TestCase):
 
     # Vals for this flag: -1 not an emulator, 0 emulator which doesn't support
     # open gl, 1 emulator which supports opengl.
-    print get_prop_output
+    print(get_prop_output)
     self.assertTrue('[ro.kernel.qemu.gles]: [1]' in get_prop_output)
 
 if __name__ == '__main__':

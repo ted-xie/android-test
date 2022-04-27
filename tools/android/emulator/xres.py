@@ -15,12 +15,12 @@
 """Simply prints out screen resolution."""
 
 
-import Tkinter
+import tkinter
 
 
 def main():
-  root = Tkinter.Tk()
-  print '%sx%s' % (root.winfo_screenwidth(), root.winfo_screenheight())
+  root = tkinter.Tk()
+  print('%sx%s' % (root.winfo_screenwidth(), root.winfo_screenheight()))
   root.destroy()
 
 if __name__ == '__main__':

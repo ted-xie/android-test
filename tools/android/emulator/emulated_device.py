@@ -1028,7 +1028,7 @@ class EmulatedDevice(object):
       # precedence over our set of ro.test_harness
       # Ignores avd_config_ini. properties. They are used
       # to store device specific config.ini values.
-      for prop_name, prop_value in default_properties.items():
+      for prop_name, prop_value in list(default_properties.items()):
         if not prop_name.startswith('avd_config_ini.'):
           self._metadata_pb.boot_property.add(name=prop_name, value=prop_value)
         if prop_name == DIRECT_BOOT_PROP and prop_value == '1':
@@ -1571,7 +1571,7 @@ class EmulatedDevice(object):
       # Set adb server port for adb servers that aren't on port 5037.
       target_env['ANDROID_ADB_SERVER_PORT'] = str(self.adb_server_port)
 
-    return {k: str(v) for k, v in target_env.items() if v is not None}
+    return {k: str(v) for k, v in list(target_env.items()) if v is not None}
 
   def _AddTimerResults(self, timer):
     # pylint: disable=unnecessary-pass
@@ -1984,7 +1984,7 @@ class EmulatedDevice(object):
 
     def WatchdogCleanup():
       logging.info('Killing emu services')
-      for p in killable.values():
+      for p in list(killable.values()):
         try:
           p.terminate()
         except OSError as e:
@@ -1999,7 +1999,7 @@ class EmulatedDevice(object):
 
       if self.delete_temp_on_exit and self._emulator_tmp_dir:
         logging.info('Cleaning up data dirs.')
-        print 'cleanup data dirs...'
+        print('cleanup data dirs...')
         self.CleanUp()
         logging.info('Clean up done.')
 
@@ -2311,7 +2311,7 @@ class EmulatedDevice(object):
     # flag 0x00000020 FLAG_INCLUDE_STOPPED_PACKAGES
     flag = 0x10000020
     args.extend(['-f', '%s' % flag])
-    for extra_key, extra_value in extras.items():
+    for extra_key, extra_value in list(extras.items()):
       if isinstance(extra_value, bool):
         args.extend(['--ez', extra_key, str(extra_value).lower()])
       else:
@@ -2989,7 +2989,7 @@ class EmulatedDevice(object):
     """
     init_prop_header = 'init.svc.'
     props = self._Props()
-    return dict([(k[len(init_prop_header):], v) for k, v in props.iteritems()
+    return dict([(k[len(init_prop_header):], v) for k, v in props.items()
                  if k.startswith(init_prop_header)])
 
   def _Props(self):
@@ -3109,7 +3109,7 @@ class EmulatedDevice(object):
         continue
       raw_value = line.split()
       value = raw_value[:4] + raw_value[-1:]
-      proc = dict(zip(key, value))
+      proc = dict(list(zip(key, value)))
       # Ignore kernel process
       vsize = proc.get('VSIZE') or proc.get('VSZ')
       if vsize == '0':
@@ -3160,7 +3160,7 @@ class EmulatedDevice(object):
       self.ExecOnDevice(['stop'])
 
       # stop any other processes that are not protected.
-      running_svcs = [k for k, v in self._QueryServices().items()
+      running_svcs = [k for k, v in list(self._QueryServices().items())
                       if k not in SHUTDOWN_PROTECTED_SERVICES
                       and v != 'stopped']
       for svc in running_svcs:
@@ -3523,8 +3523,7 @@ class EmulatedDevice(object):
 
   def GetApiCodeName(self):
     """Returns the codename of the image if it exists in source.properties."""
-    if self._source_properties and self._source_properties.has_key(
-        API_CODE_NAME):
+    if self._source_properties and API_CODE_NAME in self._source_properties:
       return self._source_properties[API_CODE_NAME]
     return ''
 

@@ -60,7 +60,7 @@ _EMULATORMETADATAPB = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='skin', full_name='tools.android.emulator.EmulatorMetaDataPb.skin', index=1,
       number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -74,7 +74,7 @@ _EMULATORMETADATAPB = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='api_name', full_name='tools.android.emulator.EmulatorMetaDataPb.api_name', index=3,
       number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -88,7 +88,7 @@ _EMULATORMETADATAPB = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='system_image_dir', full_name='tools.android.emulator.EmulatorMetaDataPb.system_image_dir', index=5,
       number=6, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -109,35 +109,35 @@ _EMULATORMETADATAPB = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='unused_emulator_version', full_name='tools.android.emulator.EmulatorMetaDataPb.unused_emulator_version', index=8,
       number=9, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
       name='net_type', full_name='tools.android.emulator.EmulatorMetaDataPb.net_type', index=9,
       number=10, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
       name='net_delay', full_name='tools.android.emulator.EmulatorMetaDataPb.net_delay', index=10,
       number=11, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
       name='net_speed', full_name='tools.android.emulator.EmulatorMetaDataPb.net_speed', index=11,
       number=12, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
       name='emulator_architecture', full_name='tools.android.emulator.EmulatorMetaDataPb.emulator_architecture', index=12,
       number=13, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -228,7 +228,7 @@ _EMULATORMETADATAPB = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='system_image_path', full_name='tools.android.emulator.EmulatorMetaDataPb.system_image_path', index=25,
       number=26, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -257,14 +257,14 @@ _PROPERTYPB = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='name', full_name='tools.android.emulator.PropertyPb.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
       name='value', full_name='tools.android.emulator.PropertyPb.value', index=1,
       number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -292,7 +292,7 @@ _PERFORMANCEDATAPB = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='activity_name', full_name='tools.android.emulator.PerformanceDataPb.activity_name', index=0,
       number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -327,7 +327,7 @@ _TIMERPB = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='name', full_name='tools.android.emulator.TimerPb.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      has_default_value=False, default_value=str("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -369,26 +369,22 @@ DESCRIPTOR.message_types_by_name['PropertyPb'] = _PROPERTYPB
 DESCRIPTOR.message_types_by_name['PerformanceDataPb'] = _PERFORMANCEDATAPB
 DESCRIPTOR.message_types_by_name['TimerPb'] = _TIMERPB
 
-class EmulatorMetaDataPb(_message.Message):
-  __metaclass__ = _reflection.GeneratedProtocolMessageType
+class EmulatorMetaDataPb(_message.Message, metaclass=_reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _EMULATORMETADATAPB
 
   # @@protoc_insertion_point(class_scope:tools.android.emulator.EmulatorMetaDataPb)
 
-class PropertyPb(_message.Message):
-  __metaclass__ = _reflection.GeneratedProtocolMessageType
+class PropertyPb(_message.Message, metaclass=_reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _PROPERTYPB
 
   # @@protoc_insertion_point(class_scope:tools.android.emulator.PropertyPb)
 
-class PerformanceDataPb(_message.Message):
-  __metaclass__ = _reflection.GeneratedProtocolMessageType
+class PerformanceDataPb(_message.Message, metaclass=_reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _PERFORMANCEDATAPB
 
   # @@protoc_insertion_point(class_scope:tools.android.emulator.PerformanceDataPb)
 
-class TimerPb(_message.Message):
-  __metaclass__ = _reflection.GeneratedProtocolMessageType
+class TimerPb(_message.Message, metaclass=_reflection.GeneratedProtocolMessageType):
   DESCRIPTOR = _TIMERPB
 
   # @@protoc_insertion_point(class_scope:tools.android.emulator.TimerPb)

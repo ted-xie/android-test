@@ -28,7 +28,7 @@ class ResourcesTest(googletest.TestCase):
   def testGetResourceFilenameWithAbsoluteFileName(self):
     temp_file = tempfile.NamedTemporaryFile().name
     resource_file = resources.GetResourceFilename(temp_file)
-    self.assertEquals(temp_file, resource_file)
+    self.assertEqual(temp_file, resource_file)
 
   def testFindRunfilesDir(self):
     # Create a set of temp directories in the format that we know bazel would
@@ -40,7 +40,7 @@ class ResourcesTest(googletest.TestCase):
     runfiles_dir = os.path.join(emu_dir, 'resources_test.runfiles')
     os.makedirs(runfiles_dir)
     output = resources.FindRunfilesDir(os.path.join(emu_dir, 'resources_test'))
-    self.assertEquals(runfiles_dir, output)
+    self.assertEqual(runfiles_dir, output)
 
   def testGetResourceAsFile(self):
     _, temp_file = tempfile.mkstemp()

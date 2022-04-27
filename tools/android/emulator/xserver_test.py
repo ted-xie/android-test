@@ -36,7 +36,7 @@ class X11ServerTest(googletest.TestCase):
     self.x11 = xserver.X11Server(
         resources.GetRunfilesDir(), tempfile.mkdtemp(), 225, 300)
     self.x11.Start()
-    self.assertEquals('225x300', self._GetXRes(self.x11.environment))
+    self.assertEqual('225x300', self._GetXRes(self.x11.environment))
 
   def testXServerKill(self):
     self.x11 = xserver.X11Server(
@@ -69,7 +69,7 @@ class X11ServerTest(googletest.TestCase):
     env = self.x11.environment
     self.x11.Start()
     env_2 = self.x11.environment
-    self.assertEquals(env, env_2)
+    self.assertEqual(env, env_2)
 
   def testIsRunningBeforeStart(self):
     self.x11 = xserver.X11Server(

@@ -54,8 +54,8 @@ class CommonTest(mox.MoxTestBase):
     expected_results = (result, None)
     actual_results = common.WaitProcess(test_context, test_task,
                                         on_success=OnSuccess)
-    self.assertEquals(actual_results, expected_results)
-    self.assertEquals(received_successes, [(test_context, test_task)])
+    self.assertEqual(actual_results, expected_results)
+    self.assertEqual(received_successes, [(test_context, test_task)])
 
   def testWaitProcess_fail(self):
     received_errors = []
@@ -75,8 +75,8 @@ class CommonTest(mox.MoxTestBase):
     expected_results = (None, result)
     actual_results = common.WaitProcess(test_context, test_task,
                                         on_success=OnSuccess, on_error=OnError)
-    self.assertEquals(actual_results, expected_results)
-    self.assertEquals(received_errors, [(test_context, test_task)])
+    self.assertEqual(actual_results, expected_results)
+    self.assertEqual(received_errors, [(test_context, test_task)])
 
   def testWaitProcesses_mix(self):
     received_errors = []
@@ -103,9 +103,9 @@ class CommonTest(mox.MoxTestBase):
                         [tasks[2], tasks[4]])
     actual_results = common.WaitProcesses(tasks, on_error=OnError,
                                           on_success=OnSuccess)
-    self.assertEquals(actual_results, expected_results)
-    self.assertEquals(received_successes, expected_results[0])
-    self.assertEquals(received_errors, expected_results[1])
+    self.assertEqual(actual_results, expected_results)
+    self.assertEqual(received_successes, expected_results[0])
+    self.assertEqual(received_errors, expected_results[1])
 
   def testSpawn_IgnoreOutput(self):
     base_args = ['/some/process', '-a']
@@ -134,7 +134,7 @@ class CommonTest(mox.MoxTestBase):
     self.mox.ReplayAll()
 
     task = common.Spawn(base_args, exec_dir=exec_dir, exec_env=exec_env)
-    self.assertEquals(task.logfile_handle, file_handle)
+    self.assertEqual(task.logfile_handle, file_handle)
 
   def testSpawn_RedirectStdinStdout(self):
     base_args = ['/some/process', '-a']
@@ -177,11 +177,11 @@ class CommonTest(mox.MoxTestBase):
 
     real_task = common.Spawn(base_args, proc_output=21, proc_input=True,
                              exec_dir=exec_dir, exec_env=exec_env)
-    self.assertEquals(real_task.stdout, tee_out_task.stdout)
-    self.assertEquals(real_task.stderr, tee_err_task.stdout)
-    self.assertEquals(real_task.tee_stdout_task, tee_out_task)
-    self.assertEquals(real_task.tee_stderr_task, tee_err_task)
-    self.assertEquals(real_task, main_task)
+    self.assertEqual(real_task.stdout, tee_out_task.stdout)
+    self.assertEqual(real_task.stderr, tee_err_task.stdout)
+    self.assertEqual(real_task.tee_stdout_task, tee_out_task)
+    self.assertEqual(real_task.tee_stderr_task, tee_err_task)
+    self.assertEqual(real_task, main_task)
     self.assertTrue(real_task.stdin)
 
 

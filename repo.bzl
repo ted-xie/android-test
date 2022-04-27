@@ -89,10 +89,10 @@ def android_test_repositories(with_dev_repositories = False):
 
     http_archive(
         name = "google_apputils",
-        build_file = str(Label("//opensource:google-apputils.BUILD")),
-        sha256 = "47959d0651c32102c10ad919b8a0ffe0ae85f44b8457ddcf2bdc0358fb03dc29",
-        strip_prefix = "google-apputils-0.4.2",
-        url = "https://pypi.python.org/packages/69/66/a511c428fef8591c5adfa432a257a333e0d14184b6c5d03f1450827f7fe7/google-apputils-0.4.2.tar.gz",
+        build_file = str(Label("//:BUILD.bazel")),
+        sha256 = "a7c51b2a0aa6357a9cbb2d9437e8cd787200531867dc02565218930b6a32166e",
+        strip_prefix = "abseil-py-1.0.0",
+        url = "https://github.com/abseil/abseil-py/archive/refs/tags/v1.0.0.tar.gz"
     )
 
     http_archive(

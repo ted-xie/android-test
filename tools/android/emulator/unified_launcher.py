@@ -17,11 +17,11 @@
 
 
 import collections
-import ConfigParser
+import configparser
 import json
 import logging
 import os
-import StringIO
+import io
 import subprocess
 import sys
 import tempfile
@@ -465,25 +465,25 @@ def _RestartDevice(device,
 
   if 'x86' == proto.emulator_architecture:
     if not _IsKvmPresent():
-      print ''
-      print '=' * 80
+      print('')
+      print('=' * 80)
       print ('= By activating KVM on your local host you can increase the '
              'speed of the emulator.      =')
-      print '=' * 80
+      print('=' * 80)
     elif not proto.with_kvm:
-      print ''
-      print '=' * 80
+      print('')
+      print('=' * 80)
       print ('= Please add --no to your bazel command line, to create '
              'snapshot images   =')
       print ('= local with KVM support. This will increase the speed of the '
              'emulator.        =')
-      print '=' * 80
+      print('=' * 80)
   else:
-    print ''
-    print '=' * 80
+    print('')
+    print('=' * 80)
     print ('= By using x86 with KVM on your local host you can increase the '
            'speed of the emulator.')
-    print '=' * 80
+    print('=' * 80)
 
   proto.system_image_dir = system_images_dir
   sysimg = (
@@ -748,9 +748,9 @@ def _TryToConvertIniStyleFileToDict(ini_style_file):
   if ini_style_file:
     with open(ini_style_file) as real_text_handle:
       text = real_text_handle.read()
-      filehandle = StringIO.StringIO('[android]\n' + text)
+      filehandle = io.StringIO('[android]\n' + text)
       try:
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.readfp(filehandle)
         return dict(config.items('android'))
       finally:
@@ -805,10 +805,10 @@ def _RemoveBootTimeApks(boot_apks=None, other_apks=None):
   boot_apks = _HashFiles(boot_apks)
   if boot_apks:
     other_apks = _HashFiles(other_apks)
-    for file_hash, _ in boot_apks.iteritems():
+    for file_hash, _ in boot_apks.items():
       if file_hash in other_apks:
         del other_apks[file_hash]
-    return other_apks.values()
+    return list(other_apks.values())
   else:
     return other_apks
 
@@ -1043,7 +1043,7 @@ def _MakeAndroidPlatform():
       platform.kvm_device = FLAGS.kvm_device
     platform.empty_snapshot_fs = FLAGS.empty_snapshot_fs
     platform.mksdcard = FLAGS.mksdcard
-    platform.bios_files = filter(lambda e: e, FLAGS.bios_files)
+    platform.bios_files = [e for e in FLAGS.bios_files if e]
 
   if FLAGS.custom_emulator:
     platform.emulator_wrapper_launcher = FLAGS.custom_emulator
@@ -1060,9 +1060,9 @@ def _IsKvmPresent():
   kernel_module = os.access('/sys/class/misc/kvm/dev', os.R_OK)
   device_node = os.access(kvm_device, os.R_OK | os.W_OK)
   if not kernel_module:
-    print 'KVM Kernel module not readable.'
+    print('KVM Kernel module not readable.')
   if not device_node:
-    print '%s: not readable or writable by current user' % kvm_device
+    print('%s: not readable or writable by current user' % kvm_device)
 
   return device_node and kernel_module
 
